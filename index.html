@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ساتاد | طرح پیشنهادی سامانه انطباق محور</title>
+    
+    <!-- Vazirmatn Font -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --card-bg: rgba(248, 249, 250, 0.7);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --text-color: #2c3e50;
+            --header-color: #1a2a45;
+            --primary-color: #2980b9; /* A more serious blue */
+            --secondary-color: #2c3e50; /* A dark slate for formal look */
+            --accent-color: #16a085; /* A professional teal */
+            --font-family: 'Vazirmatn', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-family); background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; line-height: 1.9; font-size: 16px; }
+        .container { display: flex; padding: 20px; max-width: 1400px; margin: 0 auto; }
+        .sidebar { width: 300px; position: sticky; top: 20px; height: calc(100vh - 40px); background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 20px; box-shadow: 0 8px 32px 0 var(--shadow-color); padding: 20px; overflow-y: auto; flex-shrink: 0; margin-left: 20px; }
+        .sidebar-header { text-align: center; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; }
+        .sidebar-header .brand-name { font-size: 42px; font-weight: 800; margin: 0 0 10px 0; background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .sidebar-header .full-title { font-size: 15px; font-weight: 600; color: var(--header-color); margin-bottom: 20px; line-height: 1.6; }
+        .acronym-visualizer { display: flex; justify-content: space-around; align-items: flex-start; }
+        .acronym-item { display: flex; flex-direction: column; align-items: center; }
+        .acronym-item .letter { font-size: 32px; font-weight: 800; background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px; }
+        .acronym-item .word { font-size: 11px; font-weight: 500; color: var(--text-color); opacity: 0.9; }
+        .sidebar nav ul { list-style: none; padding: 0; margin: 0; }
+        .sidebar nav li { margin-bottom: 8px; }
+        .sidebar nav a { display: flex; align-items: center; padding: 10px 15px; text-decoration: none; color: var(--text-color); border-radius: 10px; transition: all 0.3s ease; font-size: 15px; font-weight: 500; }
+        .sidebar nav a:hover, .sidebar nav a.active { background-color: rgba(41, 128, 185, 0.15); color: var(--primary-color); transform: translateX(-5px); }
+        .sidebar nav a .icon { margin-left: 10px; width: 20px; text-align: center; font-weight: bold; }
+        .main-content { flex-grow: 1; }
+        .card { background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 20px; box-shadow: 0 8px 32px 0 var(--shadow-color); padding: 30px; margin-bottom: 25px; }
+        .card p, .card li { text-align: justify; }
+        .card h2 { font-size: 24px; font-weight: 700; color: var(--header-color); margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid; padding-bottom: 10px; border-image: linear-gradient(to left, var(--primary-color), var(--accent-color)) 1; }
+        .card h3 { font-size: 18px; font-weight: 600; color: var(--header-color); margin-top: 25px; margin-bottom: 10px; }
+        ul { padding-right: 20px; list-style-type: '•  '; }
+        ol { padding-right: 20px; }
+        ul ul { list-style-type: '-  '; margin-top: 10px;}
+        li { margin-bottom: 10px; padding-right: 5px; }
+        .highlight-box { background-color: rgba(22, 160, 133, 0.1); border-right: 4px solid var(--accent-color); padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .risk-box { background-color: rgba(192, 57, 43, 0.1); border-right: 4px solid #c0392b; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .tech-infra-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .tech-item { background: rgba(255,255,255,0.5); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid var(--border-color); }
+        .tech-item i { font-size: 36px; margin-bottom: 15px; color: var(--primary-color); }
+        .timeline-item { margin-bottom: 30px; position: relative; padding-right: 50px; }
+        .roadmap-timeline::before { content: ''; position: absolute; top: 0; right: 15px; height: 100%; width: 4px; background: #e0e0e0; border-radius: 2px; }
+        .roadmap-timeline { position: relative; padding: 20px 0; }
+        .timeline-item::before { content: ''; position: absolute; right: 0px; top: 5px; width: 34px; height: 34px; border-radius: 50%; background: white; border: 4px solid var(--accent-color); z-index: 1; }
+        .timeline-item h4 { margin: 0 0 10px 0; font-weight: 600; color: var(--header-color); }
+        .user-journey li::before { content: attr(data-step); position: absolute; right: -15px; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; z-index: 2; }
+        .user-journey li::after { content: ''; position: absolute; right: 0; top: 15px; bottom: -15px; width: 2px; background: #e0e0e0; z-index: 1; }
+        .user-journey { list-style: none; padding: 0; position: relative; }
+        .user-journey li { padding-right: 40px; position: relative; margin-bottom: 25px; }
+        .user-journey li:last-child::after { display: none; }
+
+        @media (max-width: 1200px) { .container { flex-direction: column; } .sidebar { position: relative; width: auto; height: auto; margin-left: 0; margin-bottom: 20px; top: 0; } }
+        @media print { body { background: #fff; } .sidebar { display: none; } .container { padding: 0; } .card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; backdrop-filter: none; background: #fff; } .main-content { width: 100%; } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="brand-name">ساتاد</h1>
+                <p class="full-title">طرح پیشنهادی سامانه ی انطباق محور تبادل و انتقال دارایی های دیجیتال</p>
+                <div class="authors-info">
+                    طراحی و برنامه‌ریزی: <br>دکتر نازنین کاوسی | حامد حسینی <br> تاریخ: شهریور ۱۴۰۴
+                </div>
+                <div class="acronym-visualizer">
+                    <div class="acronym-item"><span class="letter">س</span><span class="word">سامانه</span></div>
+                    <div class="acronym-item"><span class="letter">ا</span><span class="word">انطباق محور</span></div>
+                    <div class="acronym-item"><span class="letter">ت</span><span class="word">تبادل</span></div>
+                    <div class="acronym-item"><span class="letter">ا</span><span class="word">انتقال</span></div>
+                    <div class="acronym-item"><span class="letter">د</span><span class="word">دارایی</span></div>
+                </div>
+            </div>
+            <nav>
+                <p style="font-weight: bold; color: var(--header-color); padding-right: 15px;">فهرست مطالب</p>
+                <ul>
+                    <li><a href="#section-1">مقدمه</a></li>
+                    <li><a href="#section-2">اهداف کلان</a></li>
+                    <li><a href="#section-3">بیان مسئله و ضرورت</a></li>
+                    <li><a href="#section-4">تعریف راهکار و دامنه خدمات</a></li>
+                    <li><a href="#section-5">مزیت‌های رقابتی</a></li>
+                    <li><a href="#section-6">سفر کاربر و جریان انطباق</a></li>
+                    <li><a href="#section-7">زیرساخت فنی و امنیت</a></li>
+                    <li><a href="#section-8">ارزش پیشنهادی برای حاکمیت</a></li>
+                    <li><a href="#section-9">مدل عملیاتی تسویه‌ی برون‌مرزی</a></li>
+                    <li><a href="#section-10">مقایسه رقابتی</a></li>
+                    <li><a href="#section-11">شاخص‌های کلیدی عملکرد</a></li>
+                    <li><a href="#section-12">نقشه‌ی راه ۱۲ماهه</a></li>
+                    <li><a href="#section-13">ملاحظات حقوقی و خط‌قرمزها</a></li>
+                    <li><a href="#section-15">رویکرد راهبردی</a></li>
+                    <li><a href="#section-16">جمع‌بندی و پیشنهاد همکاری</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="section-1" class="card">
+                <h2><i class="fa-solid fa-scroll" style="color: var(--primary-color);"></i> ۱. مقدمه</h2>
+                <p>اقتصاد ایران در سال‌های اخیر با چالش‌های گسترده‌ای در حوزه‌ی تبادلات مالی بین‌المللی مواجه بوده است. تحریم‌های مالی و محدودیت‌های بانکی دسترسی به سیستم‌های پرداخت جهانی مانند سوئیفت را محدود کرده و جریان‌های ورود و خروج ارز کشور را تحت فشار قرار داده‌اند.</p>
+                <p>در این شرایط، استفاده از فناوری‌های نوین مانند دارایی‌های دیجیتال (رمزارزها) می‌تواند فرصت جدیدی برای ایجاد کانال‌های امن، شفاف و انطباق‌پذیر فراهم آورد؛ کانال‌هایی که هم نیازهای اقتصادی کشور را پوشش دهند و هم ابزار نظارتی کارآمدی برای دولت ایجاد کنند.</p>
+                <p>«ساتاد» با رویکرد انطباق‌محور طراحی شده است تا علاوه بر تسهیل مبادلات، ابزار سیاست‌گذاری و رصد حاکمیتی نیز در اختیار نهادهای مسئول قرار دهد.</p>
+            </section>
+            
+            <section id="section-2" class="card">
+                <h2><i class="fa-solid fa-bullseye" style="color: var(--primary-color);"></i> ۲. اهداف کلان</h2>
+                <ul>
+                    <li>ایجاد بستر رسمی و شفاف برای تبادل دارایی‌های دیجیتال در داخل و خارج از کشور.</li>
+                    <li>کاهش ریسک‌های ناشی از تحریم و تقویت تاب‌آوری ارزی.</li>
+                    <li>کاهش وابستگی به دلار نقدی و کنترل بازار ارز داخلی.</li>
+                    <li>تسهیل تجارت مشروع و کاهش نقش واسطه‌های غیررسمی.</li>
+                    <li>پشتیبانی از نیازهای خرد شهروندان (دانشجویان، بیمه، تعهدات کوچک).</li>
+                    <li>تقویت ورود سرمایه‌ی ایرانیان خارج از کشور به اقتصاد ملی.</li>
+                    <li>فراهم‌سازی ابزار سیاست‌گذاری داده‌محور برای بانک مرکزی و نهادهای ناظر.</li>
+                </ul>
+            </section>
+
+            <section id="section-3" class="card">
+                <h2><i class="fa-solid fa-shield-halved" style="color: var(--primary-color);"></i> ۳. بیان مسئله و ضرورت</h2>
+                <h3>مدیریت هوشمند ریسک تحریم‌ها و تقویت تاب‌آوری ارزی</h3>
+                <p>تحریم‌های مالی همچنان ابزار اصلی فشار علیه اقتصاد ایران هستند. این تحریم‌ها نه‌تنها مبادلات بانکی بین‌المللی را مختل کرده‌اند، بلکه حتی در کشورهای به‌ظاهر دوست یا بی‌طرف نیز باعث مسدود شدن دارایی‌های ارزی ایرانیان شده‌اند. این وضعیت علاوه بر تهدید مستقیم دارایی اشخاص حقیقی و حقوقی، به‌طور بالقوه یک ریسک سیستمی برای ثبات اقتصاد ملی ایجاد می‌کند.</p>
+                <div class="highlight-box">
+                    <p>«ساتاد» با فراهم‌سازی کیف‌پول‌های امن و تحت نظارت داخلی، امکان نگهداری دارایی‌های دیجیتال در بستری امن و خارج از تیررس تحریم‌کنندگان را فراهم می‌آورد. این دارایی‌ها در صورت نیاز، می‌توانند بلافاصله و متناسب با مقصد، به ارز محلی تبدیل شوند. بدین ترتیب حاکمیت به ابزاری عملی برای مدیریت ریسک تحریم‌ها و افزایش تاب‌آوری ارزی دست پیدا می‌کند.</p>
+                </div>
+            </section>
+
+            <section id="section-4" class="card">
+                <h2><i class="fa-solid fa-cubes" style="color: var(--primary-color);"></i> ۴. تعریف راهکار «ساتاد» و دامنه‌ی خدمات (Scope)</h2>
+                <ol>
+                    <li><strong>معاملات داخلی کاربران احراز‌شده</strong>
+                        <ul>
+                            <li>بازار ریال/تتر با کارمزد شفاف و شکاف حداقلی خرید/فروش.</li>
+                            <li>ثبت کامل سوابق تراکنش‌ها و تولید گزارش‌های ممیزی‌پذیر.</li>
+                        </ul>
+                    </li>
+                    <li><strong>تسویه‌ی برون‌مرزیِ مجاز (B2B / B2C محدود)</strong>
+                        <ul>
+                            <li>عملیات از طریق شریکان دارای مجوز در امارات، ترکیه، عمان، ارمنستان، روسیه، کانادا و استرالیا (با قابلیت توسعه‌ی تدریجی).</li>
+                            <li>انجام در قالب Account-to-Account و Bank-to-Bank.</li>
+                            <li>هر مدل جایگزین فیزیکی صرفاً در چارچوب مجوز صریح نهاد ناظر و در محیط Regulatory Sandbox قابل بررسی خواهد بود.</li>
+                        </ul>
+                    </li>
+                    <li><strong>ماژول گزارش‌دهی نظارتی</strong>
+                        <ul>
+                            <li>پرتال اختصاصی برای نهادهای ناظر با قابلیت جست‌وجو، پایش و استخراج گزارش‌های:
+                                <ul>
+                                    <li>AML/CFT (ضد پول‌شویی و مقابله با تأمین مالی تروریسم)</li>
+                                    <li>KYT (تحلیل تراکنش‌ها در بستر زنجیره)</li>
+                                    <li>و رخدادهای امنیتی.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+            
+            <section id="section-5" class="card">
+                <h2><i class="fa-solid fa-trophy" style="color: var(--primary-color);"></i> ۵. مزیت‌های رقابتی</h2>
+                <ul>
+                    <li><strong>انطباق‌پذیری کامل حقوقی و نظارتی:</strong> پیاده‌سازی Travel Rule، KYT، و همسویی با توصیه‌های FATF.</li>
+                    <li><strong>تسویه‌ی شفاف و رسمی:</strong> تنها از طریق شریکان Regulated و حذف کامل سناریوهای نقدی پرریسک.</li>
+                    <li><strong>شفافیت برای نهاد ناظر:</strong> داشبورد نظارتی برخط و پرتال اختصاصی ممیزی.</li>
+                    <li><strong>امنیت سازمانی در Custody:</strong> بهره‌گیری از MPC/HSM و اصل کمینه‌سازی موجودی در کیف‌پول گرم.</li>
+                    <li><strong>ارزش افزوده تجاری:</strong> هم‌افزایی با پلتفرم‌های داخلی (دیجی‌کالا، اسنپ، علی‌بابا و …) و اتصال به پلتفرم‌های خارجی (Amazon، Trendyol و …) برای ایجاد جریان تجارت دو‌سویه و تسهیل پرداخت‌ها.</li>
+                </ul>
+            </section>
+
+            <section id="section-6" class="card">
+                <h2><i class="fa-solid fa-shoe-prints" style="color: var(--primary-color);"></i> ۶. سفر کاربر و جریان انطباق</h2>
+                <ol class="user-journey">
+                    <li data-step="۱"><strong>ثبت‌نام و احراز هویت</strong><p>انجام E-KYC چندلایه شامل اتصال به سامانه‌ی شاهکار، بررسی مدارک هویتی، و تشخیص زنده (Liveness Detection).</p></li>
+                    <li data-step="۲"><strong>ارزیابی ریسک</strong><p>تشکیل پروفایل ریسک کاربر و تطبیق با فهرست‌های تحریمی و لیست‌های ممنوعه داخلی و بین‌المللی.</p></li>
+                    <li data-step="۳"><strong>شارژ حساب</strong><p>واریز دارایی دیجیتال به کیف‌پول اختصاصی کاربر در سامانه.</p></li>
+                    <li data-step="۴"><strong>انتخاب خدمت</strong><p>انجام معامله داخلی (ریال ↔ دارایی مجازی) یا ثبت درخواست تسویه‌ی برون‌مرزی.</p></li>
+                    <li data-step="۵"><strong>کنترل‌های انطباقی</strong><p>اجرای KYT (تحلیل تراکنش‌ها)، پایش زنجیره، و اعمال Travel Rule پیش از پردازش نهایی.</p></li>
+                    <li data-step="۶"><strong>تسویه بانکی/حسابی</strong><p>انتقال وجه از طریق شریک دارای مجوز در کشور مقصد به‌صورت Account-to-Account یا Bank-to-Bank.</p></li>
+                    <li data-step="۷"><strong>گزارش‌دهی شفاف</strong><p>صدور رسید برای کاربر و تولید گزارش‌های ممیزی‌پذیر برای نهاد ناظر.</p></li>
+                </ol>
+            </section>
+
+            <section id="section-7" class="card">
+                <h2><i class="fa-solid fa-layer-group" style="color: var(--primary-color);"></i> ۷. زیرساخت فنی و امنیت</h2>
+                 <div class="tech-infra-grid">
+                    <div class="tech-item"><i class="fa-solid fa-wallet"></i><h4>امنیت کیف‌پول‌ها</h4><p>تفکیک کیف‌پول‌های سرد و گرم، کلیدداری چندجانبه (MPC) با HSM و کمینه‌سازی موجودی گرم.</p></div>
+                    <div class="tech-item"><i class="fa-solid fa-code-branch"></i><h4>DevSecOps</h4><p>آزمون نفوذ دوره‌ای، مدیریت آسیب‌پذیری‌ها، کدنویسی امن و برنامه‌های Bug Bounty.</p></div>
+                    <div class="tech-item"><i class="fa-solid fa-server"></i><h4>تداوم کسب‌وکار (BCP/DR)</h4><p>تعریف شاخص‌های RPO/RTO و انجام تمرین‌های دوره‌ای برای بازیابی سریع خدمات.</p></div>
+                    <div class="tech-item"><i class="fa-solid fa-database"></i><h4>حفاظت از داده‌ها</h4><p>رمزنگاری داده‌ها، ایزوله‌سازی داده‌های هویتی و پیروی از سیاست حداقلی نگهداری داده‌ها.</p></div>
+                </div>
+            </section>
+
+            <section id="section-8" class="card">
+                <h2><i class="fa-solid fa-landmark-flag" style="color: var(--primary-color);"></i> ۸. ارزش پیشنهادی برای حاکمیت و نهادهای ناظر</h2>
+                <ul>
+                    <li><strong>شفافیت و رهگیری‌پذیری:</strong> ارائه‌ی گزارش‌های برخط، ثبت تغییرناپذیر وقایع و دسترسی ممیزی کنترل‌شده.</li>
+                    <li><strong>کاهش ریسک در نظام پرداخت:</strong> حذف اتکا به کانال‌های غیررسمی و تبعیت از استانداردهای AML/CFT.</li>
+                    <li><strong>سیاست‌گذاری مبتنی بر داده:</strong> داشبوردهای تحلیلی برای رصد ریسک، الگوهای رفتاری و هشدارهای تحریمی.</li>
+                    <li><strong>تسهیل تجارت مشروع:</strong> تسویه‌ی قانون‌مند برای موارد مجاز از طریق شریکان دارای مجوز بین‌المللی.</li>
+                    <li><strong>افزودن ارزش هم‌افزایی:</strong> اتصال به پلتفرم‌های تجاری داخلی و خارجی برای ارتقای جایگاه ایران در تجارت دیجیتال.</li>
+                </ul>
+            </section>
+            
+            <!-- Other sections follow the same replacement pattern... -->
+            <section id="section-9" class="card">
+                 <h2><i class="fa-solid fa-cogs" style="color: var(--primary-color);"></i> ۹. مدل عملیاتی تسویه‌ی برون‌مرزی (قانون‌مدار)</h2>
+                <ul>
+                    <li><strong>Asset → Fiat:</strong> انتقال USDT به شریک مجاز و تسویه بانکی مستقیم به حساب ذی‌نفع.</li>
+                    <li><strong>Fiat → Asset (On-Ramp):</strong> صرفاً از طریق شریکان رسمی با رعایت الزامات AML/CFT.</li>
+                    <li><strong>چارچوب همکاری با شرکا:</strong> تعریف قراردادهای SLA با حق ممیزی برای ساتاد و ارزیابی دوره‌ای.</li>
+                </ul>
+                <div class="risk-box">
+                    <p><strong>توضیح تکمیلی:</strong> پایه‌ی عملیاتی ساتاد غیرنقدی و مبتنی بر Account-to-Account / Bank-to-Bank است. هرگونه مدل جایگزین (نقدی/فیزیکی) صرفاً با مجوز صریح نهاد ناظر و تحت محیط Regulatory Sandbox بررسی خواهد شد.</p>
+                </div>
+            </section>
+            
+            <section id="section-10" class="card">
+                <h2><i class="fa-solid fa-balance-scale" style="color: var(--primary-color);"></i> ۱۰. مقایسه‌ی رقابتی (بازار داخلی)</h2>
+                <p><strong>نوبیتکس:</strong> بزرگ‌ترین صرافی از نظر حجم، با نیاز به ارتقای امنیت سایبری.</p>
+                <p><strong>والکس:</strong> تمرکز بر تجربه‌ی کاربری و جذب کاربران خرد.</p>
+                <p><strong>تبدیل:</strong> تأکید بر محیط ایمن و ایجاد اعتماد.</p>
+                <p><strong>آبان‌تتر:</strong> رویکرد سریع مبتنی بر OTC و نقدشوندگی بالا.</p>
+                <div class="highlight-box">
+                    <h3>تمایز کلیدی ساتاد</h3>
+                    <ul>
+                        <li>پیاده‌سازی کامل قواعد انطباقی (Travel Rule، KYT، تحریم).</li>
+                        <li>تسویه‌ی صرفاً از طریق شریکان Regulated.</li>
+                        <li>ارائه‌ی داشبورد نظارتی برخط برای نهادهای حاکمیتی.</li>
+                        <li>معماری Custody سطح‌سازمانی (MPC/HSM).</li>
+                        <li>قابلیت اتصال به پلتفرم‌های تجاری برای تسهیل تجارت دو‌سویه.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="section-11" class="card">
+                <h2><i class="fa-solid fa-chart-line" style="color: var(--primary-color);"></i> ۱۱. شاخص‌های کلیدی عملکرد (KPIs) و SLA</h2>
+                <ul>
+                    <li><strong>دسترس‌پذیری سامانه:</strong> هدف‌گذاری سامانه برای دسترس‌پذیری بیش از ۹۹.۹٪ در سال، با RPO حداکثر ۱۵ دقیقه و RTO حداکثر یک ساعت.</li>
+                    <li><strong>کنترل‌های تحریمی و KYT:</strong> هدف دستیابی به سطح شناسایی حداقل ۹۹.۵٪ در مقایسه با فهرست‌های معتبر بین‌المللی، مشروط به دسترسی پایدار به منابع.</li>
+                    <li><strong>تسویه‌ی برون‌مرزی:</strong> بر اساس SLA هر شریک مجاز و با رعایت الزامات بانکی و رگولاتوری کشور مقصد.</li>
+                </ul>
+            </section>
+            
+            <section id="section-12" class="card">
+                <h2><i class="fa-solid fa-road" style="color: var(--primary-color);"></i> ۱۲. نقشه‌ی راه ۱۲ماهه</h2>
+                <div class="roadmap-timeline">
+                    <div class="timeline-item"><h4>ماه ۱–۲: طراحی حقوقی و رگولاتوری</h4><p>انتخاب کریدورهای کم‌ریسک و پیش‌قرارداد با شریکان دارای مجوز.</p></div>
+                    <div class="timeline-item"><h4>ماه ۳–۴: معماری فنی</h4><p>یکپارچه‌سازی سامانه‌های E-KYC، KYT، Travel Rule و انتخاب راهکار Custody.</p></div>
+                    <div class="timeline-item"><h4>ماه ۵–۶: عرضه MVP داخلی</h4><p>راه‌اندازی محیط Regulatory Sandbox برای ارزیابی زیر نظر نهاد ناظر.</p></div>
+                    <div class="timeline-item"><h4>ماه ۷–۹: اجرای پایلوت برون‌مرزی</h4><p>در دو کریدور نمونه (مثلاً امارات و ترکیه) و رصد KPIهای نظارتی.</p></div>
+                    <div class="timeline-item"><h4>ماه ۱۰–۱۲: توسعه و ممیزی</h4><p>توسعه‌ی مقیاس‌پذیری، ممیزی توسط نهاد ثالث، و افزودن کریدورهای جدید (مشروط به مجوز).</p></div>
+                </div>
+            </section>
+
+            <section id="section-13" class="card">
+                <h2><i class="fa-solid fa-ban" style="color: var(--primary-color);"></i> ۱۳. ملاحظات حقوقی و خط‌قرمزها</h2>
+                <ul>
+                    <li><strong>خدمات پرداخت داخلی:</strong> عدم استفاده از رمزارز به‌عنوان ابزار پرداخت مستقیم.</li>
+                    <li><strong>نقدرسانی حضوری:</strong> ممنوعیت قطعی ارائه یا دریافت وجه نقد حضوری.</li>
+                    <li><strong>محدودیت‌های تحریمی:</strong> عدم ارائه خدمت به اشخاص، نهادها یا حوزه‌های جغرافیایی مشمول تحریم.</li>
+                    <li><strong>شفافیت و ممیزی‌پذیری:</strong> نگهداری کامل سوابق و گزارش‌دهی منظم به مراجع ذی‌صلاح.</li>
+                </ul>
+            </section>
+
+            <section id="section-15" class="card">
+                <h2><i class="fa-solid fa-chess-king" style="color: var(--primary-color);"></i> ۱۴. رویکرد راهبردی</h2>
+                <ul>
+                    <li><strong>اقتصاد مقاومتی:</strong> ساتاد ابزاری برای کاهش وابستگی به سوئیفت و دلار نقدی و افزایش تاب‌آوری ارزی کشور است.</li>
+                    <li><strong>هاب منطقه‌ای:</strong> با تکمیل زیرساخت، ساتاد می‌تواند به مرکز تبادل رسمی دارایی‌های دیجیتال برای کشورهای همسایه (عراق، افغانستان، سوریه، لبنان) تبدیل شود. (این مسیر صرفاً تحت Sandbox نظارتی و با اخذ مجوزهای لازم پیش خواهد رفت).</li>
+                </ul>
+            </section>
+            
+            <section id="section-16" class="card">
+                <h2><i class="fa-solid fa-file-signature" style="color: var(--primary-color);"></i> ۱۵. جمع‌بندی و پیشنهاد مسیر همکاری</h2>
+                <p>«ساتاد» تنها یک پلتفرم تبادل رمزارز نیست؛ بلکه یک زیرساخت ملی انطباق‌محور است که می‌تواند ابزار راهبردی دولت در مدیریت اقتصاد دیجیتال باشد. این سامانه با ترکیب شفافیت مالی، امنیت سازمانی و پرتال نظارتی برخط، توانایی ایجاد کنترل و پایش دقیق بر جریان‌های ارزی را برای حاکمیت فراهم می‌کند.</p>
+                <div class="highlight-box">
+                    <h4>پیشنهاد عملی:</h4>
+                    <ul>
+                        <li>تشکیل کارگروه مشترک ناظر–حقوقی–فنی برای هدایت و پایش طرح.</li>
+                        <li>آغاز اجرای طرح در قالب Regulatory Sandbox محدود زمانی تحت نظارت نهادهای ذی‌ربط.</li>
+                        <li>توسعه‌ی مرحله‌ای خدمات، متناسب با مجوزها و اولویت‌های ملی.</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+</html>
